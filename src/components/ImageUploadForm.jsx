@@ -1,4 +1,3 @@
-// Contenido para: frontend/src/components/ImageUploadForm.jsx
 
 import React, { useState } from 'react';
 import axios from 'axios';
@@ -29,7 +28,7 @@ export default function ImageUploadForm({ mapaId, onUploadSuccess }) {
         formData.append('imagen', selectedFile);
         formData.append('mapa_id', mapaId);
 
-        const apiUrl = 'http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/subir_imagen_mapa.php';
+        const apiUrl = 'https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/subir_imagen_mapa.php';
 
         axios.post(apiUrl, formData, {
             headers: {

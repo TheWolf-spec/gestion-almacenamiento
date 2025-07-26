@@ -1,4 +1,3 @@
-// Contenido para: frontend/src/components/LocationMenu.jsx
 
 import React, { useState } from 'react';
 import { FaMapMarkerAlt, FaLink, FaExternalLinkAlt } from 'react-icons/fa';

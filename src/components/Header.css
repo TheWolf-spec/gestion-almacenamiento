@@ -1,16 +1,16 @@
 .app-header {
-    background-color: #28a745; /* Verde como en tu diseño */
+    background-color: #28a745; 
     color: white;
     padding: 10px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed; /* Lo fija en la parte superior */
+    position: fixed; /* Para fijar en la parte superior */
     top: 0;
     left: 0;
     width: 100%;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
-    z-index: 1000; /* Se asegura que esté por encima de otros elementos */
+    box-sizing: border-box; 
+    z-index: 1000; 
 }
 
 .header-left, .header-right {
@@ -48,7 +48,6 @@
 .nav-link:hover {
     text-decoration: underline;
 }
-/* --- Media Queries para Responsividad --- */
 @media (max-width: 768px) {
     .app-header {
         flex-direction: column; /* Apila los elementos verticalmente */
@@ -66,12 +65,11 @@
     }
 
     .header-nav {
-        display: none; /* Ocultamos la navegación tradicional en pantallas pequeñas */
-        /* Aquí iría la lógica para un menú de hamburguesa en un proyecto más complejo */
+        display: none; 
     }
 
     .search-bar {
-        width: 100%; /* La barra de búsqueda ocupa todo el ancho */
+        width: 100%; 
         margin-right: 0;
     }
 }

@@ -1,47 +1,45 @@
 .map-block {
-    position: absolute; /* ¡La clave para superponerlo! */
-    background-color: rgba(40, 167, 69, 0.4); /* Verde semitransparente */
+    position: absolute; 
+    background-color: rgba(40, 167, 69, 0.4); 
     border: 2px solid rgba(23, 115, 46, 0.8);
-    box-sizing: border-box; /* Para que el borde no afecte el tamaño */
+    box-sizing: border-box; 
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    text-shadow: 1px 1px 2px black; /* Sombra para que el texto sea legible */
+    text-shadow: 1px 1px 2px black; 
     font-weight: bold;
-    font-size: 1.2rem; /* El tamaño se ajustará con el zoom */
+    font-size: 1.2rem; 
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
 .map-block:hover {
-    background-color: rgba(40, 167, 69, 0.6); /* Más opaco al pasar el mouse */
+    background-color: rgba(40, 167, 69, 0.6); 
 }
 
 .block-name {
     padding: 5px;
     text-align: center;
 }
-/* Definimos la animación de parpadeo */
+
 @keyframes blinking-effect {
     50% {
-        background-color: rgba(23, 115, 46, 0.8); /* Se vuelve más oscuro */
-        transform: scale(1.02); /* Se agranda un poco */
+        background-color: rgba(23, 115, 46, 0.8); 
+        transform: scale(1.02); 
     }
 }
 
-/* Aplicamos la animación a la clase 'selecting' */
+
 .map-block.selecting {
     animation: blinking-effect 1.2s infinite ease-in-out;
     border-color: #fff;
 }
-/* Al final de Block.css */
 .map-block.highlighted {
     background-color: rgba(255, 193, 7, 0.7); /* Amarillo */
     border: 3px solid #ffc107;
     transform: scale(1.05);
 }
-/* Estilos para el botón de eliminar bloque */
 .delete-block-btn {
     position: absolute;
     top: 5px;
@@ -57,11 +55,11 @@
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    opacity: 0; /* Oculto por defecto */
+    opacity: 0; 
     transition: opacity 0.2s, background-color 0.2s;
 }
 
-/* El botón se hace visible cuando pasamos el ratón sobre el bloque */
+/* El boton se hace visible cuando pasamos el raton sobre el bloque */
 .map-block:hover .delete-block-btn {
     opacity: 1;
 }

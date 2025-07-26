@@ -2,12 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #28a745; /* Color verde como en tu diseño */
+    background-color: #28a745; 
     color: white;
     text-decoration: none;
     padding: 15px 20px;
     margin: 10px 0;
-    border-radius: 50px; /* Bordes redondeados */
+    border-radius: 50px; 
     font-size: 1.2rem;
     transition: transform 0.2s ease-in-out;
     width: 80%;
@@ -15,12 +15,11 @@
 }
 
 .map-list-item:hover {
-  transform: scale(1.03); /* Efecto al pasar el mouse */
+    transform: scale(1.03); 
 }
 
 .gps-button {
-    background-color: #dc3545; /* Color rojo para el botón */
-    border: none;
+    background-color: #dc3545; 
     border-radius: 50%;
     width: 45px;
     height: 45px;
@@ -37,7 +36,7 @@
 }
 @media (max-width: 768px) {
     .map-list-item {
-        width: 95%; /* Ocupa más ancho de la pantalla */
+        width: 95%; 
         padding: 12px 15px;
         font-size: 1rem;
     }

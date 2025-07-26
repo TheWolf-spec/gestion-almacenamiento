@@ -1,4 +1,3 @@
-/* Usamos el mismo overlay del formulario, pero el contenido es diferente */
 .modal-content-detail {
     background-color: #28a745; /* Fondo verde como en el mockup */
     color: white;
@@ -68,7 +67,7 @@
     opacity: 1;
     transform: scale(1.1);
 }
-/* --- Añadir al final de ElementDetailView.css --- */
+
 
 .files-section {
     margin-top: 15px;

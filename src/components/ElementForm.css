@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2000; /* Asegura que esté por encima de todo */
+    z-index: 2000; /* Asegura que este por encima de todo :)*/
 }
 
 .modal-content {

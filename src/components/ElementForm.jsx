@@ -1,4 +1,3 @@
-// Contenido para: frontend/src/components/ElementForm.jsx
 
 import React, { useState } from 'react';
 import './ElementForm.css';
@@ -6,7 +5,7 @@ import './ElementForm.css';
 export default function ElementForm({ onSubmit, onCancel }) {
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [files, setFiles] = useState(null); // Estado para guardar los archivos seleccionados
+    const [files, setFiles] = useState(null); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,7 +13,7 @@ export default function ElementForm({ onSubmit, onCancel }) {
             alert('El nombre es obligatorio.');
             return;
         }
-        // Pasamos los archivos al submit
+        
         onSubmit({ nombre, descripcion, files });
     };
 
@@ -28,7 +27,6 @@ export default function ElementForm({ onSubmit, onCancel }) {
                         <input type="text" id="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
                     </div>
                     
-                    {/* Input para subir múltiples archivos */}
                     <div className="form-group">
                         <label htmlFor="files">Subir Archivos (Opcional)</label>
                         <input type="file" id="files" onChange={(e) => setFiles(e.target.files)} multiple />

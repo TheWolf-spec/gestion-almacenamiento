@@ -1,14 +1,11 @@
-// Contenido para: frontend/src/components/ElementDetailView.jsx
 
 import React, { useRef } from 'react';
 import { FaTrash, FaPlusCircle } from 'react-icons/fa';
 import './ElementDetailView.css';
 
 export default function ElementDetailView({ element, blockName, onClose, onEdit, onDelete, onAddFiles, onDeleteFile }) {
-    // useRef nos permite acceder a un elemento del DOM, en este caso el input de archivo oculto
     const fileInputRef = useRef(null);
 
-    // Función para determinar si el archivo es imagen o documento
     const getFileType = (fileName) => {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
         const extension = fileName.split('.').pop().toLowerCase();
@@ -36,12 +33,11 @@ export default function ElementDetailView({ element, blockName, onClose, onEdit,
                     <p className="detail-description">{element.descripcion || 'No hay descripción.'}</p>
                 </div>
 
-                {/* Sección para mostrar los archivos */}
                 <div className="files-section">
                     <h4>Imágenes</h4>
                     {element.archivos?.filter(a => a.tipo_archivo === 'imagen').map(file => (
                         <div key={file.id} className="file-item">
-                            <a href={`http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
+                            <a href={`https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
                             <button onClick={() => onDeleteFile(file.id)} className="delete-file-btn"><FaTrash /></button>
                         </div>
                     ))}
@@ -50,14 +46,13 @@ export default function ElementDetailView({ element, blockName, onClose, onEdit,
                     <h4>Documentos</h4>
                     {element.archivos?.filter(a => a.tipo_archivo === 'documento').map(file => (
                         <div key={file.id} className="file-item">
-                            <a href={`http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
+                            <a href={`https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
                             <button onClick={() => onDeleteFile(file.id)} className="delete-file-btn"><FaTrash /></button>
                         </div>
                     ))}
                     {element.archivos?.filter(a => a.tipo_archivo === 'documento').length === 0 && <span className="no-files-text">No hay documentos.</span>}
                 </div>
                 
-                {/* Input de archivo oculto */}
                 <input 
                     type="file" 
                     ref={fileInputRef} 

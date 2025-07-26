@@ -36,11 +36,40 @@ const MapViewer = ({ mapa, isCreating, onBlockCreate, isSelectingForElement, onB
         const y = e.clientY - rect.top;
         return { x: (x / rect.width) * 100, y: (y / rect.height) * 100 };
     };
+    
+    const handleMouseDown = (e) => {
+        if (!isCreating || newBlock) {
+            return;
+        }
+        const startCoords = getCoords(e);
+        if (startCoords) {
+            setNewBlock({ ...startCoords, width: 0, height: 0 });
+        }
+    };
 
-    const handleMouseDown = (e) => { if (!isCreating || newBlock) return; const startCoords = getCoords(e); if (startCoords) setNewBlock({ ...startCoords, width: 0, height: 0 }); };
-    const handleMouseMove = (e) => { if (!newBlock) return; const currentCoords = getCoords(e); if (currentCoords) { const width = Math.abs(currentCoords.x - newBlock.x); const height = Math.abs(currentCoords.y - newBlock.y); const newX = Math.min(currentCoords.x, newBlock.x); const newY = Math.min(currentCoords.y, newBlock.y); setNewBlock({ x: newX, y: newY, width, height }); } };
-    const handleMouseUp = () => { if (!newBlock || newBlock.width === 0 || newBlock.height === 0) { setNewBlock(null); return; } onBlockCreate(newBlock); setNewBlock(null); };
+    const handleMouseMove = (e) => {
+        if (!newBlock) {
+            return;
+        }
+        const currentCoords = getCoords(e);
+        if (currentCoords) {
+            const width = Math.abs(currentCoords.x - newBlock.x);
+            const height = Math.abs(currentCoords.y - newBlock.y);
+            const newX = Math.min(currentCoords.x, newBlock.x);
+            const newY = Math.min(currentCoords.y, newBlock.y);
+            setNewBlock({ x: newX, y: newY, width, height });
+        }
+    };
 
+    const handleMouseUp = () => {
+        if (!newBlock || newBlock.width === 0 || newBlock.height === 0) {
+            setNewBlock(null);
+            return;
+        }
+        onBlockCreate(newBlock);
+        setNewBlock(null);
+    };
+    
     return (
         <div
             ref={mapWrapperRef}
@@ -50,7 +79,7 @@ const MapViewer = ({ mapa, isCreating, onBlockCreate, isSelectingForElement, onB
             onMouseUp={handleMouseUp}
             style={{ cursor: isCreating ? 'crosshair' : (isSelectingForElement ? 'pointer' : 'grab') }}
         >
-            <img src={`httphttp://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${mapa.imagen_url}`} alt={`Mapa de ${mapa.nombre}`} />
+            <img src={`https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${mapa.imagen_url}`} alt={`Mapa de ${mapa.nombre}`} />
             {mapa.bloques && mapa.bloques.map(bloque => (
                 <Block
                     key={bloque.id}
@@ -79,7 +108,7 @@ export default function MapaPage() {
     const [highlightedBlockId, setHighlightedBlockId] = useState(null);
 
     useEffect(() => {
-        const apiUrl = `http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/get_mapa_detalle.php?id=${mapaId}`;
+        const apiUrl = `https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/get_mapa_detalle.php?id=${mapaId}`;
         axios.get(apiUrl)
             .then(response => { setMapaActual(response.data); })
             .catch(error => { console.error("Error al obtener los detalles del mapa:", error); setMapaActual(null); });
@@ -92,7 +121,7 @@ export default function MapaPage() {
     };
 
     const handleAddFiles = async (files, elementId) => {
-        const apiUrl = 'http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/subir_archivo_elemento.php';
+        const apiUrl = 'https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/subir_archivo_elemento.php';
         for (const file of files) {
             const formData = new FormData();
             formData.append('archivo', file);
@@ -120,7 +149,7 @@ export default function MapaPage() {
 
     const handleDeleteFile = (fileId) => {
         if (window.confirm("¿Estás seguro de que quieres eliminar este archivo?")) {
-            const apiUrl = 'http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/eliminar_archivo_elemento.php';
+            const apiUrl = 'https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/eliminar_archivo_elemento.php';
             axios.post(apiUrl, { id: fileId })
                 .then(() => {
                     setMapaActual(prev => ({
@@ -143,7 +172,7 @@ export default function MapaPage() {
 
     const handleFormSubmit = (formData) => {
         const elementToSave = { bloque_id: selectedBlockId, nombre: formData.nombre, descripcion: formData.descripcion };
-        axios.post('http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/crear_elemento.php', elementToSave)
+        axios.post('https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/crear_elemento.php', elementToSave)
             .then(response => {
                 const nuevoElemento = { ...elementToSave, id: response.data.id, archivos: [] };
                 setMapaActual(prev => ({
@@ -160,9 +189,9 @@ export default function MapaPage() {
     };
 
     const handleUpdateLocation = () => {
-        const nuevaUrl = prompt("Introduce la nueva URL de ubicación (ej. https://maps.google.com/...)\nDéjalo en blanco para borrar la ubicación actual.", mapaActual.ubicacion_url || '');
+        const nuevaUrl = prompt("Introduce la neuva URL de ubicacion \nDejalo en blanco para borrar la ubicacino actual.", mapaActual.ubicacion_url || '');
         if (nuevaUrl === null) return;
-        const apiUrl = 'http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/actualizar_ubicacion.php';
+        const apiUrl = 'https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/actualizar_ubicacion.php';
         axios.post(apiUrl, { mapa_id: mapaId, ubicacion_url: nuevaUrl })
             .then(response => {
                 setMapaActual(prev => ({ ...prev, ubicacion_url: nuevaUrl }));
@@ -178,19 +207,153 @@ export default function MapaPage() {
             alert("Este mapa no tiene una ubicación guardada.");
         }
     };
+    const handleFinalizeBlock = (newBlockData) => {
+        const nombre = prompt("Introduce el nombre para el nuevo bloque:", "Nuevo Bloque");
+        if (nombre) {
+            const blockToSave = {
+                mapa_id: mapaId,
+                nombre,
+                pos_x: newBlockData.x,
+                pos_y: newBlockData.y,
+                ancho: newBlockData.width,
+                alto: newBlockData.height
+            };
+    axios.post('https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/crear_bloque.php', blockToSave)
+            .then(response => {
+                const nuevoBloque = { ...blockToSave, id: response.data.id, elementos: [] };
+                setMapaActual(prev => ({ ...prev, bloques: [...prev.bloques, nuevoBloque] }));
+                alert(response.data.message);
+            })
+            .catch(error => {
+                console.error("Error al crear el bloque:", error);
+                alert("No se pudo crear el bloque.");
+            });
+        }
+        setIsCreating(false);
+    };
+    const handleModifyBlockName = (blockId) => {
+        const bloqueActual = mapaActual.bloques.find(b => b.id === blockId);
+        if (!bloqueActual) return;
+        const nuevoNombre = prompt("Introduce el nuevo nombre para el bloque :D :", bloqueActual.nombre);
+        if (nuevoNombre && nuevoNombre.trim() !== '' && nuevoNombre !== bloqueActual.nombre) {
 
-    const handleFinalizeBlock = (newBlockData) => { const nombre = prompt("Introduce el nombre para el nuevo bloque:", "Nuevo Bloque"); if (nombre) { const blockToSave = { mapa_id: mapaId, nombre, pos_x: newBlockData.x, pos_y: newBlockData.y, ancho: newBlockData.width, alto: newBlockData.height }; axios.post('http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/crear_bloque.php', blockToSave).then(response => { const nuevoBloque = { ...blockToSave, id: response.data.id, elementos: [] }; setMapaActual(prev => ({ ...prev, bloques: [...prev.bloques, nuevoBloque] })); alert(response.data.message); }).catch(error => { console.error("Error al crear el bloque:", error); alert("No se pudo crear el bloque."); }); } setIsCreating(false); };
-    const handleModifyBlockName = (blockId) => { const bloqueActual = mapaActual.bloques.find(b => b.id === blockId); if (!bloqueActual) return; const nuevoNombre = prompt("Introduce el nuevo nombre para el bloque:", bloqueActual.nombre); if (nuevoNombre && nuevoNombre.trim() !== '' && nuevoNombre !== bloqueActual.nombre) { axios.post('http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/modificar_bloque.php', { id: blockId, nombre: nuevoNombre }).then(response => { setMapaActual(prev => ({ ...prev, bloques: prev.bloques.map(b => b.id === blockId ? { ...b, nombre: nuevoNombre } : b) })); alert(response.data.message); }).catch(error => { console.error("Error al modificar el bloque:", error); alert("No se pudo modificar el bloque."); }); } };
-    const handleDeleteBlock = (blockId) => { if (window.confirm("¿Estás seguro de que quieres eliminar este bloque y todos los elementos que contiene?")) { axios.post('http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/eliminar_bloque.php', { id: blockId }).then(response => { setMapaActual(prev => ({ ...prev, bloques: prev.bloques.filter(b => b.id !== blockId) })); alert(response.data.message); }).catch(error => { console.error("Error al eliminar el bloque:", error); alert("No se pudo eliminar el bloque."); }); } };
-    const handleUpdateElement = (elemento) => { const nuevoNombre = prompt("Introduce el nuevo nombre del elemento:", elemento.nombre); if (nuevoNombre === null) return; const nuevaDescripcion = prompt("Introduce la nueva descripción:", elemento.descripcion || ''); if (nuevaDescripcion === null) return; const elementToUpdate = { id: elemento.id, nombre: nuevoNombre, descripcion: nuevaDescripcion }; axios.post('http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/modificar_elemento.php', elementToUpdate).then(response => { setMapaActual(prev => ({ ...prev, bloques: prev.bloques.map(b => ({ ...b, elementos: b.elementos ? b.elementos.map(e => e.id === elemento.id ? { ...e, nombre: nuevoNombre, descripcion: nuevaDescripcion } : e) : [] })) })); closeDetailView(); alert(response.data.message); }).catch(error => { console.error("Error al modificar elemento:", error); alert("No se pudo modificar el elemento."); }); };
-    const handleDeleteElement = (elementId) => { if (window.confirm("¿Estás seguro de que quieres eliminar este elemento?")) { axios.post('http://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/eliminar_elemento.php', { id: elementId }).then(response => { setMapaActual(prev => ({ ...prev, bloques: prev.bloques.map(b => ({ ...b, elementos: b.elementos ? b.elementos.filter(e => e.id !== elementId) : [] })) })); closeDetailView(); alert(response.data.message); }).catch(error => { console.error("Error al eliminar el elemento:", error); alert("No se pudo eliminar el elemento."); }); } };
+    axios.post('https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/modificar_bloque.php', { id: blockId, nombre: nuevoNombre })
+            .then(response => {
+                setMapaActual(prev => ({
+                    ...prev,
+                    bloques: prev.bloques.map(b => b.id === blockId ? { ...b, nombre: nuevoNombre } : b)
+                }));
+                alert(response.data.message);
+            })
+            .catch(error => {
+                console.error("Error al modificar el bloque :", error);
+                alert("No se pudo modificar el bloque.");
+            });
+        }
+    };
+
+    const handleDeleteBlock = (blockId) => {
+        if (window.confirm("Esta seguro de que quieres eliminar este bloque y todos los elementos que cotniene? :(")) {
+
+    axios.post('https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/eliminar_bloque.php', { id: blockId })
+            .then(response => {
+                setMapaActual(prev => ({
+                    ...prev,
+                    bloques: prev.bloques.filter(b => b.id !== blockId)
+                }));
+                alert(response.data.message);
+            })
+            .catch(error => {
+                console.error("Error al eliminar el bloque:", error);
+                alert("No se pudo eliminar el bloque.");
+            });
+        }
+    };
+    const handleUpdateElement = (elemento) => {
+        const nuevoNombre = prompt("Introduce el nuevo nombre del elemento please:", elemento.nombre);
+        if (nuevoNombre === null) return;
+        const nuevaDescripcion = prompt("Introduce la nueva descripciOn por favor :", elemento.descripcion || '');
+        if (nuevaDescripcion === null) return;
+        const elementToUpdate = { id: elemento.id, nombre: nuevoNombre, descripcion: nuevaDescripcion };
+
+    axios.post('https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/modificar_elemento.php', elementToUpdate)
+        .then(response => {
+            setMapaActual(prev => ({
+                ...prev,
+                bloques: prev.bloques.map(b => ({
+                    ...b,
+                    elementos: b.elementos ? b.elementos.map(e => e.id === elemento.id ? { ...e, nombre: nuevoNombre, descripcion: nuevaDescripcion } : e) : []
+                }))
+            }));
+            closeDetailView();
+            alert(response.data.message);
+        })
+        .catch(error => {
+            console.error("Error al modificar elemento:", error);
+            alert("No se pudo modificar el elemento.");
+        });
+    };
+    const handleDeleteElement = (elementId) => {
+        if (window.confirm("Estas segruo de que quieres eliminar este elemento? :< ")) {
+
+    axios.post('https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/eliminar_elemento.php', { id: elementId })
+            .then(response => {
+                setMapaActual(prev => ({
+                    ...prev,
+                    bloques: prev.bloques.map(b => ({
+                        ...b,
+                        elementos: b.elementos ? b.elementos.filter(e => e.id !== elementId) : []
+                    }))
+                }));
+                closeDetailView();
+                alert(response.data.message);
+            })
+            .catch(error => {
+                console.error("Error al eliminar el elemento:", error);
+                alert("No se pudo eliminar el elemento.");
+            });
+        }
+    };
+
+
     const handleUploadSuccess = (newImageUrl) => { setMapaActual(prev => ({ ...prev, imagen_url: newImageUrl })); };
     const handleFormCancel = () => setSelectedBlockId(null);
     const handleStartAddElement = () => setIsSelectingForElement(true);
     const handleBlockSelect = (blockId) => { setSelectedBlockId(blockId); setIsSelectingForElement(false); };
-    const handleSearch = (term) => { setElementSearchTerm(term); if (!term) { setFoundElement(null); setHighlightedBlockId(null); return; } for (const bloque of mapaActual.bloques) { if (bloque.elementos) { const elementoEncontrado = bloque.elementos.find(el => el.nombre.toLowerCase().includes(term.toLowerCase())); if (elementoEncontrado) { setFoundElement({ ...elementoEncontrado, blockName: bloque.nombre }); setHighlightedBlockId(bloque.id); return; } } } setFoundElement(null); setHighlightedBlockId(null); };
-    const closeDetailView = () => { setFoundElement(null); setHighlightedBlockId(null); setElementSearchTerm(''); };
-    const handleCambiarMapa = () => navigate('/');
+    const handleSearch = (term) => {
+        setElementSearchTerm(term);
+        if (!term) {
+            setFoundElement(null);
+            setHighlightedBlockId(null);
+            return;
+        }
+        for (const bloque of mapaActual.bloques) {
+            if (bloque.elementos) {
+                const elementoEncontrado = bloque.elementos.find(el => 
+                    el.nombre.toLowerCase().includes(term.toLowerCase())
+                );
+                if (elementoEncontrado) {
+                    setFoundElement({ ...elementoEncontrado, blockName: bloque.nombre });
+                    setHighlightedBlockId(bloque.id);
+                    return;
+                }
+            }
+        }
+        setFoundElement(null);
+        setHighlightedBlockId(null);
+    };
+
+    const closeDetailView = () => {
+        setFoundElement(null);
+        setHighlightedBlockId(null);
+        setElementSearchTerm('');
+    };
+
+    const handleCambiarMapa = () => {
+        navigate('/');
+    };
+
+
 
     const fabActions = [
         { label: isCreating ? 'Cancelar Creación' : 'Crear Bloque', onClick: () => setIsCreating(!isCreating), icon: <FaBoxOpen /> },

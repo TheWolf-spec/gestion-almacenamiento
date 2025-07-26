@@ -1,4 +1,3 @@
-// Contenido para: frontend/src/components/Header.jsx
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -19,13 +18,11 @@ export default function Header({ searchTerm, onSearchChange, placeholder }) {
                     onChange={onSearchChange}
                 />
                 <nav className="header-nav">
-                {/* --- LÍNEA MODIFICADA --- */}
-                {/* Cambiamos Link por 'a' y añadimos el enlace a WhatsApp */}
                 <a 
                     href="https://wa.me/+59164707579" 
                     className="nav-link"
-                    target="_blank" // Abre el enlace en una nueva pestaña
-                    rel="noopener noreferrer" // Buena práctica de seguridad para enlaces externos
+                    target="_blank" 
+                    rel="noopener noreferrer" 
                 >
                         Contacto
                     </a>

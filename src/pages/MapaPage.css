@@ -14,13 +14,12 @@
 
 .map-viewer-container {
     width: 90%;
-    height: 70vh; /* Ocupa el 70% de la altura de la pantalla */
+    height: 70vh; 
     border: 2px solid #ccc;
     background-color: #fff;
     overflow: hidden; /* Muy importante para que el zoom funcione dentro del contenedor */
 }
 
-/* El contenedor de la librería necesita ocupar todo el espacio */
 .react-transform-wrapper, .react-transform-component {
     width: 100%;
     height: 100%;
@@ -30,22 +29,22 @@
     position: relative; 
     width: 100%;
     height: 100%;
-    display: flex; /* Añadido para centrar */
-    justify-content: center; /* Añadido para centrar */
-    align-items: center; /* Añadido para centrar */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
 }
 
 .map-image-wrapper img {
     max-width: 100%;
-    max-height: 100%;  /*<-- LA LÍNEA CLAVE*/
+    max-height: 100%;  /*LA LINEA CLAVE DON'T TOUCH IT*/
     object-fit: contain; /* Asegura que la imagen se escale correctamente */
 }
 .creating-block {
     position: absolute;
-    background-color: rgba(220, 53, 69, 0.5); /* Rojo semitransparente para diferenciarlo */
+    background-color: rgba(220, 53, 69, 0.5); 
     border: 2px dashed #dc3545;
     box-sizing: border-box;
-    pointer-events: none; /* Evita que este div interfiera con los eventos del ratón */
+    pointer-events: none; 
 }
 @media (max-width: 768px) {
     .map-title {
@@ -53,6 +52,6 @@
     }
     .map-viewer-container {
         width: 95%;
-        height: 80vh; /* Hacemos el visor más alto en móviles */
+        height: 80vh; /* Para hacer el ivsor mas alto en moviles */
     }
 }
