@@ -1,0 +1,71 @@
+.map-block {
+    position: absolute; /* ¡La clave para superponerlo! */
+    background-color: rgba(40, 167, 69, 0.4); /* Verde semitransparente */
+    border: 2px solid rgba(23, 115, 46, 0.8);
+    box-sizing: border-box; /* Para que el borde no afecte el tamaño */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 1px 1px 2px black; /* Sombra para que el texto sea legible */
+    font-weight: bold;
+    font-size: 1.2rem; /* El tamaño se ajustará con el zoom */
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.map-block:hover {
+    background-color: rgba(40, 167, 69, 0.6); /* Más opaco al pasar el mouse */
+}
+
+.block-name {
+    padding: 5px;
+    text-align: center;
+}
+/* Definimos la animación de parpadeo */
+@keyframes blinking-effect {
+    50% {
+        background-color: rgba(23, 115, 46, 0.8); /* Se vuelve más oscuro */
+        transform: scale(1.02); /* Se agranda un poco */
+    }
+}
+
+/* Aplicamos la animación a la clase 'selecting' */
+.map-block.selecting {
+    animation: blinking-effect 1.2s infinite ease-in-out;
+    border-color: #fff;
+}
+/* Al final de Block.css */
+.map-block.highlighted {
+    background-color: rgba(255, 193, 7, 0.7); /* Amarillo */
+    border: 3px solid #ffc107;
+    transform: scale(1.05);
+}
+/* Estilos para el botón de eliminar bloque */
+.delete-block-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(220, 53, 69, 0.8); /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+/* El botón se hace visible cuando pasamos el ratón sobre el bloque */
+.map-block:hover .delete-block-btn {
+    opacity: 1;
+}
+
+.delete-block-btn:hover {
+    background-color: rgba(200, 40, 50, 1); /* Rojo más oscuro */
+}

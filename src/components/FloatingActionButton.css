@@ -1,0 +1,67 @@
+.fab-container {
+    position: fixed; /* Esto lo fija en la pantalla */
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column-reverse; /* Apila los elementos hacia arriba */
+    align-items: center;
+}
+
+.fab-main {
+    background-color: #28a745; /* Verde */
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.fab-main:hover {
+    transform: scale(1.1);
+}
+
+.fab-menu {
+    display: flex;
+    flex-direction: column;
+  margin-bottom: 15px; /* Espacio entre el menú y el botón principal */
+}
+
+.fab-menu-item {
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap; /* Evita que el texto se parta en dos líneas */
+}
+
+.fab-menu-item:hover {
+    background-color: #e2e6ea;
+}
+
+.fab-menu-item span {
+  margin-left: 10px; /* Espacio entre el icono y el texto */
+}
+@media (max-width: 768px) {
+    .fab-container {
+        bottom: 20px;
+        right: 20px;
+    }
+    .fab-main {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}

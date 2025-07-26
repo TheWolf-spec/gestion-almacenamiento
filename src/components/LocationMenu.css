@@ -1,0 +1,55 @@
+/* Contenido para: frontend/src/components/LocationMenu.css */
+.location-menu-container {
+    position: absolute;
+    top: 80px; /* Debajo del header */
+    right: 30px;
+    z-index: 1001; /* Por encima del mapa pero debajo de los modales */
+}
+.location-main-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.location-options {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.location-options button {
+    padding: 12px 18px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+.location-options button:hover {
+    background-color: #f1f1f1;
+}
+@media (max-width: 768px) {
+    .location-menu-container {
+        top: 130px; /* Ajustamos a la nueva altura del header */
+        right: 20px;
+    }
+    .location-main-btn {
+        width: 45px;
+        height: 45px;
+    }
+}
