@@ -79,7 +79,7 @@ const MapViewer = ({ mapa, isCreating, onBlockCreate, isSelectingForElement, onB
             onMouseUp={handleMouseUp}
             style={{ cursor: isCreating ? 'crosshair' : (isSelectingForElement ? 'pointer' : 'grab') }}
         >
-            <img src={`http://fjrg.byethost7.com/GestionAlmacenamiento/${mapa.imagen_url}`} alt={`Mapa de ${mapa.nombre}`} />
+            <img src={`https://fjrg.byethost7.com/GestionAlmacenamiento/${mapa.imagen_url}`} alt={`Mapa de ${mapa.nombre}`} />
             {mapa.bloques && mapa.bloques.map(bloque => (
                 <Block
                     key={bloque.id}
@@ -108,7 +108,7 @@ export default function MapaPage() {
     const [highlightedBlockId, setHighlightedBlockId] = useState(null);
 
     useEffect(() => {
-        const apiUrl = `http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/get_mapa_detalle.php?id=${mapaId}`;
+        const apiUrl = `https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/get_mapa_detalle.php?id=${mapaId}`;
         axios.get(apiUrl)
             .then(response => { setMapaActual(response.data); })
             .catch(error => { console.error("Error al obtener los detalles del mapa:", error); setMapaActual(null); });
@@ -121,7 +121,7 @@ export default function MapaPage() {
     };
 
     const handleAddFiles = async (files, elementId) => {
-        const apiUrl = 'http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/subir_archivo_elemento.php';
+        const apiUrl = 'https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/subir_archivo_elemento.php';
         for (const file of files) {
             const formData = new FormData();
             formData.append('archivo', file);
@@ -149,7 +149,7 @@ export default function MapaPage() {
 
     const handleDeleteFile = (fileId) => {
         if (window.confirm("¿Estás seguro de que quieres eliminar este archivo?")) {
-            const apiUrl = 'http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/eliminar_archivo_elemento.php';
+            const apiUrl = 'https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/eliminar_archivo_elemento.php';
             axios.post(apiUrl, { id: fileId })
                 .then(() => {
                     setMapaActual(prev => ({
@@ -172,7 +172,7 @@ export default function MapaPage() {
 
     const handleFormSubmit = (formData) => {
         const elementToSave = { bloque_id: selectedBlockId, nombre: formData.nombre, descripcion: formData.descripcion };
-        axios.post('http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/crear_elemento.php', elementToSave)
+        axios.post('https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/crear_elemento.php', elementToSave)
             .then(response => {
                 const nuevoElemento = { ...elementToSave, id: response.data.id, archivos: [] };
                 setMapaActual(prev => ({
@@ -191,7 +191,7 @@ export default function MapaPage() {
     const handleUpdateLocation = () => {
         const nuevaUrl = prompt("Introduce la neuva URL de ubicacion \nDejalo en blanco para borrar la ubicacino actual.", mapaActual.ubicacion_url || '');
         if (nuevaUrl === null) return;
-        const apiUrl = 'http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/actualizar_ubicacion.php';
+        const apiUrl = 'https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/actualizar_ubicacion.php';
         axios.post(apiUrl, { mapa_id: mapaId, ubicacion_url: nuevaUrl })
             .then(response => {
                 setMapaActual(prev => ({ ...prev, ubicacion_url: nuevaUrl }));
@@ -218,7 +218,7 @@ export default function MapaPage() {
                 ancho: newBlockData.width,
                 alto: newBlockData.height
             };
-    axios.post('http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/crear_bloque.php', blockToSave)
+    axios.post('https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/crear_bloque.php', blockToSave)
             .then(response => {
                 const nuevoBloque = { ...blockToSave, id: response.data.id, elementos: [] };
                 setMapaActual(prev => ({ ...prev, bloques: [...prev.bloques, nuevoBloque] }));
@@ -237,7 +237,7 @@ export default function MapaPage() {
         const nuevoNombre = prompt("Introduce el nuevo nombre para el bloque :D :", bloqueActual.nombre);
         if (nuevoNombre && nuevoNombre.trim() !== '' && nuevoNombre !== bloqueActual.nombre) {
 
-    axios.post('http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/modificar_bloque.php', { id: blockId, nombre: nuevoNombre })
+    axios.post('https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/modificar_bloque.php', { id: blockId, nombre: nuevoNombre })
             .then(response => {
                 setMapaActual(prev => ({
                     ...prev,
@@ -255,7 +255,7 @@ export default function MapaPage() {
     const handleDeleteBlock = (blockId) => {
         if (window.confirm("Esta seguro de que quieres eliminar este bloque y todos los elementos que cotniene? :(")) {
 
-    axios.post('http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/eliminar_bloque.php', { id: blockId })
+    axios.post('https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/eliminar_bloque.php', { id: blockId })
             .then(response => {
                 setMapaActual(prev => ({
                     ...prev,
@@ -276,7 +276,7 @@ export default function MapaPage() {
         if (nuevaDescripcion === null) return;
         const elementToUpdate = { id: elemento.id, nombre: nuevoNombre, descripcion: nuevaDescripcion };
 
-    axios.post('http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/modificar_elemento.php', elementToUpdate)
+    axios.post('https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/modificar_elemento.php', elementToUpdate)
         .then(response => {
             setMapaActual(prev => ({
                 ...prev,
@@ -296,7 +296,7 @@ export default function MapaPage() {
     const handleDeleteElement = (elementId) => {
         if (window.confirm("Estas segruo de que quieres eliminar este elemento? :< ")) {
 
-    axios.post('http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/eliminar_elemento.php', { id: elementId })
+    axios.post('https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/eliminar_elemento.php', { id: elementId })
             .then(response => {
                 setMapaActual(prev => ({
                     ...prev,

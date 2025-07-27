@@ -28,7 +28,7 @@ export default function ImageUploadForm({ mapaId, onUploadSuccess }) {
         formData.append('imagen', selectedFile);
         formData.append('mapa_id', mapaId);
 
-        const apiUrl = 'http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/subir_imagen_mapa.php';
+        const apiUrl = 'https://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/subir_imagen_mapa.php';
 
         axios.post(apiUrl, formData, {
             headers: {
