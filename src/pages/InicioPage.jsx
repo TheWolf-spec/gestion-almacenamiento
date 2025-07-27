@@ -10,7 +10,7 @@ export default function InicioPage() {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        axios.get('https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/mapas.php')
+        axios.get('http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/mapas.php')
             .then(response => { setMapas(response.data); })
             .catch(error => { console.error("Error al obtener los mapas:", error); });
     }, []);
@@ -18,7 +18,7 @@ export default function InicioPage() {
     const handleCrearMapa = () => {
         const nombreMapa = prompt('Introduce el nombre del nuevo mapa:');
         if (nombreMapa && nombreMapa.trim() !== '') {
-            const apiUrl = 'https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/crear_mapa.php';
+            const apiUrl = 'http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/crear_mapa.php';
             axios.post(apiUrl, { nombre: nombreMapa })
                 .then(response => {
                     setMapas(prevMapas => [response.data, ...prevMapas]);
@@ -40,7 +40,7 @@ export default function InicioPage() {
         const nuevoNombre = prompt(`Introduce el nuevo nombre para el mapa con ID ${idParaModificar}:`);
 
         if (nuevoNombre && nuevoNombre.trim() !== '') {
-            const apiUrl = 'https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/modificar_mapa.php';
+            const apiUrl = 'http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/modificar_mapa.php';
             
             axios.post(apiUrl, { id: idParaModificar, nombre: nuevoNombre })
                 .then(response => {
@@ -65,7 +65,7 @@ export default function InicioPage() {
 
         if (idParaEliminar && !isNaN(idParaEliminar)) {
             if (window.confirm(`¿Estás seguro de que quieres eliminar el mapa con ID ${idParaEliminar}?`)) {
-                const apiUrl = 'https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/backend/api/eliminar_mapa.php';
+                const apiUrl = 'http://fjrg.byethost7.com/GestionAlmacenamiento/backend/api/eliminar_mapa.php';
                 axios.post(apiUrl, { id: idParaEliminar })
                     .then(response => {
                         setMapas(prevMapas => prevMapas.filter(mapa => mapa.id.toString() !== idParaEliminar));

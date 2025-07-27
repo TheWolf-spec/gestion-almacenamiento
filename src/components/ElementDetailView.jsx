@@ -37,7 +37,7 @@ export default function ElementDetailView({ element, blockName, onClose, onEdit,
                     <h4>Imágenes</h4>
                     {element.archivos?.filter(a => a.tipo_archivo === 'imagen').map(file => (
                         <div key={file.id} className="file-item">
-                            <a href={`https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
+                            <a href={`http://fjrg.byethost7.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
                             <button onClick={() => onDeleteFile(file.id)} className="delete-file-btn"><FaTrash /></button>
                         </div>
                     ))}
@@ -46,7 +46,7 @@ export default function ElementDetailView({ element, blockName, onClose, onEdit,
                     <h4>Documentos</h4>
                     {element.archivos?.filter(a => a.tipo_archivo === 'documento').map(file => (
                         <div key={file.id} className="file-item">
-                            <a href={`https://fjrg.infinityfreeapp.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
+                            <a href={`http://fjrg.byethost7.com/GestionAlmacenamiento/${file.ruta_archivo}`} target="_blank" rel="noopener noreferrer">{file.nombre_original}</a>
                             <button onClick={() => onDeleteFile(file.id)} className="delete-file-btn"><FaTrash /></button>
                         </div>
                     ))}
